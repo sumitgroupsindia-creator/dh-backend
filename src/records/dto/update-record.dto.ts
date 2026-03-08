@@ -19,10 +19,26 @@ export class UpdateRecordDto {
   @IsOptional()
   loanType?: LoanType;
 
+  @IsString()
+  @IsOptional()
+  vehicleType?: string;
+
+  @IsString()
+  @IsOptional()
+  vehicleModel?: string;
+
+  @IsString()
+  @IsOptional()
+  vehicleNumber?: string;
+
   @IsNumber()
   @Min(0)
   @IsOptional()
   loanAmount?: number;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
 
   @IsEnum(RecordStatus)
   @IsOptional()

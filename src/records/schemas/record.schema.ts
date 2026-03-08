@@ -20,7 +20,19 @@ export class Record {
   loanType: LoanType;
 
   @Prop({ required: true })
+  vehicleType: string;
+
+  @Prop({ required: true })
+  vehicleModel: string;
+
+  @Prop({ required: true })
+  vehicleNumber: string;
+
+  @Prop()
   loanAmount: number;
+
+  @Prop()
+  description: string;
 
   @Prop({ required: true, enum: RecordStatus, default: RecordStatus.PENDING })
   status: RecordStatus;
