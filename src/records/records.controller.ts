@@ -36,8 +36,13 @@ export class RecordsController {
   }
 
   @Get('export/csv')
-  async exportCsv(@CurrentUser() user, @Res() res: Response) {
-    const records = await this.recordsService.getExportData(user);
+  async exportCsv(
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+    @CurrentUser() user,
+    @Res() res: Response,
+  ) {
+    const records = await this.recordsService.getExportData(user, startDate, endDate);
 
     const csvHeader = 'Client Name,Mobile,Address,Loan Type,Loan Amount,Status,Created By,Created At\n';
     const csvRows = records
@@ -56,8 +61,13 @@ export class RecordsController {
   }
 
   @Get('export/excel')
-  async exportExcel(@CurrentUser() user, @Res() res: Response) {
-    const records = await this.recordsService.getExportData(user);
+  async exportExcel(
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+    @CurrentUser() user,
+    @Res() res: Response,
+  ) {
+    const records = await this.recordsService.getExportData(user, startDate, endDate);
 
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Records');

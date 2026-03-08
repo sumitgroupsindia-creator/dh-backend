@@ -22,7 +22,7 @@ export class RecordsService {
   }
 
   async findAll(query: QueryRecordDto, user: any) {
-    const { search, loanType, status, page = '1', limit = '10' } = query;
+    const { search, loanType, status, startDate, endDate, page = '1', limit = '10' } = query;
     const pageNum = parseInt(page, 10);
     const limitNum = parseInt(limit, 10);
     const skip = (pageNum - 1) * limitNum;
@@ -36,6 +36,15 @@ export class RecordsService {
 
     if (loanType) filter.loanType = loanType;
     if (status) filter.status = status;
+    if (startDate || endDate) {
+      filter.createdAt = {};
+      if (startDate) filter.createdAt.$gte = new Date(startDate);
+      if (endDate) {
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        filter.createdAt.$lte = end;
+      }
+    }
     if (search) {
       filter.$or = [
         { clientName: { $regex: search, $options: 'i' } },
@@ -110,10 +119,19 @@ export class RecordsService {
     await this.recordModel.findByIdAndDelete(id);
   }
 
-  async getExportData(user: any) {
+  async getExportData(user: any, startDate?: string, endDate?: string) {
     const filter: any = {};
     if (user.role === Role.TEAM_MEMBER) {
       filter.createdBy = user.id;
+    }
+    if (startDate || endDate) {
+      filter.createdAt = {};
+      if (startDate) filter.createdAt.$gte = new Date(startDate);
+      if (endDate) {
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        filter.createdAt.$lte = end;
+      }
     }
 
     return this.recordModel
