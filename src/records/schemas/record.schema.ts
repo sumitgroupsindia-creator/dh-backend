@@ -29,6 +29,9 @@ export class Record {
   vehicleNumber: string;
 
   @Prop()
+  bankName: string;
+
+  @Prop()
   loanAmount: number;
 
   @Prop()

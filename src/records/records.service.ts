@@ -50,6 +50,7 @@ export class RecordsService {
         { clientName: { $regex: search, $options: 'i' } },
         { mobile: { $regex: search, $options: 'i' } },
         { address: { $regex: search, $options: 'i' } },
+        { bankName: { $regex: search, $options: 'i' } },
       ];
     }
 

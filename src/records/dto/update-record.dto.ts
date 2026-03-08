@@ -31,6 +31,10 @@ export class UpdateRecordDto {
   @IsOptional()
   vehicleNumber?: string;
 
+  @IsString()
+  @IsOptional()
+  bankName?: string;
+
   @IsNumber()
   @Min(0)
   @IsOptional()

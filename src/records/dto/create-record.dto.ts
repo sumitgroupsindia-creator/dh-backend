@@ -29,6 +29,10 @@ export class CreateRecordDto {
   @IsNotEmpty()
   vehicleNumber: string;
 
+  @IsString()
+  @IsOptional()
+  bankName?: string;
+
   @IsNumber()
   @Min(0)
   @IsOptional()
